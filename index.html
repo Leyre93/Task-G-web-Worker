@@ -1,0 +1,34 @@
+<!-- I created a web worker to count from 1 to 100, i use this link as an example https://www.w3schools.com/html/html5_webworkers.asp -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web Workers Example</title>
+	<script>
+		// Define a function to perform the task
+		function compute(n) {
+			var result = 0;
+			for (var i = 0; i < n; i++) {
+				result += Math.pow(2, i);
+			}
+			return result;
+		}
+		
+		// Create a new Web Worker
+		var worker = new Worker("worker.js");
+		
+		//This was done to send a short delay before sending the initial message so the "Counting..."" appears before the count
+		setTimeout(function() {
+			worker.postMessage(100);
+		}, 1000);
+		
+		// Listen for messages from the Web Worker
+		worker.onmessage = function(event) {
+			document.getElementById("result").innerHTML = "Count: " + event.data;
+		};
+	</script>
+</head>
+<body>
+	<div id="result">Counting...</div>
+</body>
+</html>
