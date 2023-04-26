@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="result"></div>
+
+<script>
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+  try {
+    // Define an array of objects
+    const users = [
+      { name: "John", age: 30 },
+      { name: "Jane", age: 25 },
+      { name: "Bob", age: 40 }
+    ];
+
+    // Store the array of objects
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Retrieve the array of objects
+    const retrievedUsers = JSON.parse(localStorage.getItem("users"));
+
+    // Display the retrieved data in the HTML
+    document.getElementById("result").innerHTML = JSON.stringify(retrievedUsers);
+  } catch (e) {
+    // Handle errors
+    document.getElementById("result").innerHTML = "Error: " + e.message;
+  }
+} else {
+  document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+</script>
+
+</body>
+</html>
